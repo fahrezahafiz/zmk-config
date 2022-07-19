@@ -1,0 +1,121 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+
+#define QWERT 0
+#define MEDIA 1
+#define NAV   2
+#define BT    3
+#define SYM   4
+#define NUM   5
+#define FUNC  6
+
+/ {
+        keymap {
+                compatible = "zmk,keymap";
+
+                default_layer {
+// -----------------------------------------------------------------------------------------
+// |  ESC |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BKSP |
+// | CAPS |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |  '   |
+// | SHFT |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  | ENT  |
+//                    | ESC | TAB | ENT |   | SPC | BKSP | DEL |
+                        bindings = <
+   &kp ESC   &kp Q      &kp W      &kp E       &kp R         &kp T          &kp Y         &kp U          &kp I       &kp O      &kp P         &kp BSPC
+   &kp CAPS  &mt LGUI A &mt LALT S &mt LCTRL D &mt LSHFT F   &kp G          &kp H         &mt LSHFT J    &mt LCTRL K &mt LALT L &mt LGUI SEMI &kp SQT
+   &kp LSHFT &kp Z      &kp X      &kp C       &kp V         &kp B          &kp N         &kp M          &kp COMMA   &kp DOT    &kp FSLH      &kp ESC
+                                   &lt MEDIA ESC &lt NAV TAB &lt BT ENTER   &lt SYM SPACE &lt MEDIA BSPC &lt FUNC DEL
+                        >;
+                };
+                media_layer {
+// -----------------------------------------------------------------------------------------
+// |     |      |      |       |       |     |   |      |      |      |      |      |     |
+// |     | LGUI | LALT | LCTRL | LSHFT |     |   |      | PREV | VOL- | VOL+ | NEXT |     |
+// |     |      |      |       |       |     |   |      |      |      |      |      |     |
+//                     |       |       |     |   | PLAY | MUTE |      |
+                        bindings = <
+   &trans &trans   &trans   &trans    &trans    &trans   &trans   &trans     &trans       &trans       &trans     &trans
+   &trans &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &trans   &trans   &kp C_PREV &kp C_VOL_DN &kp C_VOL_UP &kp C_NEXT &trans
+   &trans &trans   &trans   &trans    &trans    &trans   &trans   &trans     &trans       &trans       &trans     &trans
+                            &trans    &trans    &trans   &kp C_PP &kp C_MUTE &trans
+                        >;
+                };
+
+                nav_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
+// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &trans &trans   &trans   &trans    &trans    &trans   &kp PG_UP &kp HOME &kp UP   &kp END   &trans  &trans
+   &trans &kp LGUI &kp LALT &kp LCTRL &kp LSHFT &trans   &kp PG_DN &kp LEFT &kp DOWN &kp RIGHT &trans  &trans
+   &trans &trans   &trans   &trans    &trans    &trans   &kp CAPS  &trans   &trans   &trans    &kp INS &trans
+                            &trans    &trans    &trans   &kp ENTER &kp BSPC &kp DEL
+                        >;
+                };
+                
+                bt_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
+// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &trans &trans &trans &trans &trans &trans   &trans     &trans       &trans       &trans       &trans       &ext_power EP_OFF
+   &trans &trans &trans &trans &trans &trans   &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4
+   &trans &trans &trans &trans &trans &trans   &trans     &trans       &trans       &trans       &kp INS      &trans
+                            &trans    &trans   &trans     &trans       &trans       &trans
+                        >;
+                };
+
+                sym_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
+// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &trans &kp LBRC  &kp AMPS &kp ASTRK &kp LPAR  &kp RBRC    &trans &trans    &trans    &trans   &trans   &trans
+   &trans &kp COLON &kp DLLR &kp PRCNT &kp CARET &kp PLUS    &trans &kp LSHFT &kp LCTRL &kp LALT &kp LGUI &trans
+   &trans &kp TILDE &kp EXCL &kp AT    &kp HASH  &kp PIPE    &trans &trans    &trans    &trans   &trans   &trans
+                             &kp LPAR  &kp RPAR  &kp UNDER   &trans &trans    &trans
+                        >;
+                };
+
+                num_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
+// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &trans &kp LBKT  &kp N7 &kp N8   &kp N9   &kp RBKT    &trans &trans    &trans    &trans   &trans   &trans
+   &trans &kp SEMI  &kp N4 &kp N5   &kp N6   &kp EQUAL   &trans &kp LSHFT &kp LCTRL &kp LALT &kp LGUI &trans
+   &trans &kp GRAVE &kp N1 &kp N2   &kp N3   &kp BSLH    &trans &trans    &trans    &trans   &trans   &trans
+                           &kp LPAR &kp RPAR &kp UNDER   &trans &trans    &trans
+                        >;
+                };
+
+                func_layer {
+// -----------------------------------------------------------------------------------------
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
+// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
+// | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
+//                    | GUI |     | SPC |   | ENT |     | ALT |
+                        bindings = <
+   &trans &kp F12 &kp F7 &kp F8     &kp F9  &kp PSCRN         &trans &trans    &trans    &trans   &trans   &trans
+   &trans &kp F11 &kp F4 &kp F5     &kp F6  &kp SLCK          &trans &kp LSHFT &kp LCTRL &kp LALT &kp LGUI &trans
+   &trans &kp F10 &kp F1 &kp F2     &kp F3  &kp PAUSE_BREAK   &trans &trans    &trans    &trans   &trans   &trans
+                         &kp C_MENU &kp TAB &kp SPACE         &trans &trans    &trans
+                        >;
+                };
+        };
+};
